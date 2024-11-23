@@ -1,6 +1,6 @@
 reddit:
-  client_id: 2KDziNafg0HghUP0CMzCFQ
-  client_secret: -LWE8i0kVizEhsKAj-FbANFb8diiow
+  client_id: null
+  client_secret: null
   user_agent: zelda
 
 search_terms:
