@@ -1,0 +1,265 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+            <script src="lib/bindings/utils.js"></script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/dist/vis-network.min.css" integrity="sha512-WgxfT5LWjfszlPHXRmBWHkV2eceiWTOBvrKCNbdgDYTHrT2AeLCGbF4sZlZw3UMN3WtL0tGUoIAKsu8mllg/XA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js" integrity="sha512-LnvoEWDFrqGHlHmDD2101OrLcbsfkrzoSpvtSQtxK3RMnRV0eOkhhBN2dXHKRrUU8p2DGRTk35n4O8nWSVe1mQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            
+        
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+        <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+          crossorigin="anonymous"
+        />
+        <script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+          crossorigin="anonymous"
+        ></script>
+
+
+        <center>
+          <h1></h1>
+        </center>
+        <style type="text/css">
+
+             #mynetwork {
+                 width: 100%;
+                 height: 750px;
+                 background-color: white;
+                 border: 1px solid lightgray;
+                 position: relative;
+                 float: left;
+             }
+
+             
+             #loadingBar {
+                 position:absolute;
+                 top:0px;
+                 left:0px;
+                 width: 100%;
+                 height: 750px;
+                 background-color:rgba(200,200,200,0.8);
+                 -webkit-transition: all 0.5s ease;
+                 -moz-transition: all 0.5s ease;
+                 -ms-transition: all 0.5s ease;
+                 -o-transition: all 0.5s ease;
+                 transition: all 0.5s ease;
+                 opacity:1;
+             }
+
+             #bar {
+                 position:absolute;
+                 top:0px;
+                 left:0px;
+                 width:20px;
+                 height:20px;
+                 margin:auto auto auto auto;
+                 border-radius:11px;
+                 border:2px solid rgba(30,30,30,0.05);
+                 background: rgb(0, 173, 246); /* Old browsers */
+                 box-shadow: 2px 0px 4px rgba(0,0,0,0.4);
+             }
+
+             #border {
+                 position:absolute;
+                 top:10px;
+                 left:10px;
+                 width:500px;
+                 height:23px;
+                 margin:auto auto auto auto;
+                 box-shadow: 0px 0px 4px rgba(0,0,0,0.2);
+                 border-radius:10px;
+             }
+
+             #text {
+                 position:absolute;
+                 top:8px;
+                 left:530px;
+                 width:30px;
+                 height:50px;
+                 margin:auto auto auto auto;
+                 font-size:22px;
+                 color: #000000;
+             }
+
+             div.outerBorder {
+                 position:relative;
+                 top:400px;
+                 width:600px;
+                 height:44px;
+                 margin:auto auto auto auto;
+                 border:8px solid rgba(0,0,0,0.1);
+                 background: rgb(252,252,252); /* Old browsers */
+                 background: -moz-linear-gradient(top,  rgba(252,252,252,1) 0%, rgba(237,237,237,1) 100%); /* FF3.6+ */
+                 background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(252,252,252,1)), color-stop(100%,rgba(237,237,237,1))); /* Chrome,Safari4+ */
+                 background: -webkit-linear-gradient(top,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* Chrome10+,Safari5.1+ */
+                 background: -o-linear-gradient(top,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* Opera 11.10+ */
+                 background: -ms-linear-gradient(top,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* IE10+ */
+                 background: linear-gradient(to bottom,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* W3C */
+                 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fcfcfc', endColorstr='#ededed',GradientType=0 ); /* IE6-9 */
+                 border-radius:72px;
+                 box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+             }
+             
+
+             
+             #config {
+                 float: left;
+                 width: 400px;
+                 height: 600px;
+             }
+             
+
+             
+        </style>
+    </head>
+
+
+    <body>
+        <div class="card" style="width: 100%">
+            
+            
+            <div id="mynetwork" class="card-body"></div>
+        </div>
+
+        
+            <div id="loadingBar">
+              <div class="outerBorder">
+                <div id="text">0%</div>
+                <div id="border">
+                  <div id="bar"></div>
+                </div>
+              </div>
+            </div>
+        
+        
+            <div id="config"></div>
+        
+
+        <script type="text/javascript">
+
+              // initialize global variables.
+              var edges;
+              var nodes;
+              var allNodes;
+              var allEdges;
+              var nodeColors;
+              var originalNodes;
+              var network;
+              var container;
+              var options, data;
+              var filter = {
+                  item : '',
+                  property : '',
+                  value : []
+              };
+
+              
+
+              
+
+              // This method is responsible for drawing the graph, returns the drawn network
+              function drawGraph() {
+                  var container = document.getElementById('mynetwork');
+
+                  
+
+                  // parsing and collecting nodes and edges from the python
+                  nodes = new vis.DataSet([{"color": "#c6c2f6", "font": {"color": "black", "size": 20, "strokeColor": "white", "strokeWidth": 2}, "id": "Topic_1", "label": "Topic 2\ncirca:0.01, subito:0.01, scusa:0.01, finito:0.01, alfano:0.00, giorno:0.00, militare:0.00, democrazia:0.00, giorni:0.00, studio:0.00", "shape": "box", "size": 10}, {"color": "#ec7215", "font": {"color": "black", "size": 15.61, "strokeColor": "white", "strokeWidth": 2}, "id": "Author_mirh", "label": "mirh\n(Score: 10.61)", "shape": "star", "size": 20.61}, {"color": "#ec7215", "font": {"color": "black", "size": 15.02, "strokeColor": "white", "strokeWidth": 2}, "id": "Author_LanciaStratos93", "label": "LanciaStratos93\n(Score: 10.02)", "shape": "star", "size": 20.02}, {"color": "#ec7215", "font": {"color": "black", "size": 15.6, "strokeColor": "white", "strokeWidth": 2}, "id": "Author_Mishulo", "label": "Mishulo\n(Score: 10.60)", "shape": "star", "size": 20.6}, {"color": "#ec7215", "font": {"color": "black", "size": 14.4, "strokeColor": "white", "strokeWidth": 2}, "id": "Author_Kit_Emmuorto", "label": "Kit_Emmuorto\n(Score: 9.40)", "shape": "star", "size": 19.4}, {"color": "#ec7215", "font": {"color": "black", "size": 11.41, "strokeColor": "white", "strokeWidth": 2}, "id": "Author_Emanuele676", "label": "Emanuele676\n(Score: 6.41)", "shape": "star", "size": 16.41}, {"color": "#ec7215", "font": {"color": "black", "size": 8.4, "strokeColor": "white", "strokeWidth": 2}, "id": "Author_bonzinip", "label": "bonzinip\n(Score: 3.40)", "shape": "star", "size": 13.4}, {"color": "#1B9E77", "font": {"color": "black"}, "id": "Author_ChiaraFoglietta", "label": "ChiaraFoglietta\n(Score: 2.83)", "shape": "dot", "size": 12.83}, {"color": "#1B9E77", "font": {"color": "black"}, "id": "Author_stefantalpalaru", "label": "stefantalpalaru\n(Score: 3.11)", "shape": "dot", "size": 13.11}, {"color": "#1B9E77", "font": {"color": "black"}, "id": "Author_lestrigone", "label": "lestrigone\n(Score: 1.31)", "shape": "dot", "size": 11.31}, {"color": "#1B9E77", "font": {"color": "black"}, "id": "Author_sempiternum", "label": "sempiternum\n(Score: 1.61)", "shape": "dot", "size": 11.61}, {"color": "#1B9E77", "font": {"color": "black"}, "id": "Author_againstconsole", "label": "againstconsole\n(Score: 1.90)", "shape": "dot", "size": 11.9}, {"color": "#1B9E77", "font": {"color": "black"}, "id": "Author_Mgm_it", "label": "Mgm_it\n(Score: 1.92)", "shape": "dot", "size": 11.92}, {"color": "#1B9E77", "font": {"color": "black"}, "id": "Author_ananasso_satanasso", "label": "ananasso_satanasso\n(Score: 2.50)", "shape": "dot", "size": 12.5}, {"color": "#1B9E77", "font": {"color": "black"}, "id": "Author_pasternacco", "label": "pasternacco\n(Score: 1.61)", "shape": "dot", "size": 11.61}, {"color": "#ec7215", "font": {"color": "black", "size": 9.33, "strokeColor": "white", "strokeWidth": 2}, "id": "Author_Ste29ebasta", "label": "Ste29ebasta\n(Score: 4.33)", "shape": "star", "size": 14.33}, {"color": "#1B9E77", "font": {"color": "black"}, "id": "Author_babilone", "label": "babilone\n(Score: 1.26)", "shape": "dot", "size": 11.26}, {"color": "#1B9E77", "font": {"color": "black"}, "id": "Author_tartare4562", "label": "tartare4562\n(Score: 1.91)", "shape": "dot", "size": 11.91}, {"color": "#1B9E77", "font": {"color": "black"}, "id": "Author_liaisons_dangereuses", "label": "liaisons_dangereuses\n(Score: 2.23)", "shape": "dot", "size": 12.23}, {"color": "#1B9E77", "font": {"color": "black"}, "id": "Author_A_Nest_Of_Nope", "label": "A_Nest_Of_Nope\n(Score: 1.91)", "shape": "dot", "size": 11.91}, {"color": "#1B9E77", "font": {"color": "black"}, "id": "Author_elphieLil84", "label": "elphieLil84\n(Score: 1.32)", "shape": "dot", "size": 11.32}, {"color": "#1B9E77", "font": {"color": "black"}, "id": "Author_OriginalCoso", "label": "OriginalCoso\n(Score: 2.21)", "shape": "dot", "size": 12.21}, {"color": "#1B9E77", "font": {"color": "black"}, "id": "Author_MrAlagos", "label": "MrAlagos\n(Score: 1.01)", "shape": "dot", "size": 11.01}, {"color": "#1B9E77", "font": {"color": "black"}, "id": "Author_-yenn-", "label": "-yenn-\n(Score: 1.94)", "shape": "dot", "size": 11.94}, {"color": "#1B9E77", "font": {"color": "black"}, "id": "Author_Arcadess", "label": "Arcadess\n(Score: 1.01)", "shape": "dot", "size": 11.01}, {"color": "#1B9E77", "font": {"color": "black"}, "id": "Author__samux_", "label": "_samux_\n(Score: 1.32)", "shape": "dot", "size": 11.32}, {"color": "#1B9E77", "font": {"color": "black"}, "id": "Author_giaq", "label": "giaq\n(Score: 1.61)", "shape": "dot", "size": 11.61}, {"color": "#1B9E77", "font": {"color": "black"}, "id": "Author_xeptt", "label": "xeptt\n(Score: 1.33)", "shape": "dot", "size": 11.33}, {"color": "#1B9E77", "font": {"color": "black"}, "id": "Author_switchhh", "label": "switchhh\n(Score: 2.81)", "shape": "dot", "size": 12.81}, {"color": "#1B9E77", "font": {"color": "black"}, "id": "Author_Antorugby", "label": "Antorugby\n(Score: 1.62)", "shape": "dot", "size": 11.620000000000001}, {"color": "#1B9E77", "font": {"color": "black"}, "id": "Author_Trouauey", "label": "Trouauey\n(Score: 0.99)", "shape": "dot", "size": 10.99}, {"color": "#1B9E77", "font": {"color": "black"}, "id": "Author_gautedasuta", "label": "gautedasuta\n(Score: 1.62)", "shape": "dot", "size": 11.620000000000001}, {"color": "#1B9E77", "font": {"color": "black"}, "id": "Author_Valluan", "label": "Valluan\n(Score: 0.99)", "shape": "dot", "size": 10.99}, {"color": "#1B9E77", "font": {"color": "black"}, "id": "Author_martinomh", "label": "martinomh\n(Score: 1.93)", "shape": "dot", "size": 11.93}, {"color": "#1B9E77", "font": {"color": "black"}, "id": "Author_Bromao", "label": "Bromao\n(Score: 1.31)", "shape": "dot", "size": 11.31}, {"color": "#1B9E77", "font": {"color": "black"}, "id": "Author_EmanueleAina", "label": "EmanueleAina\n(Score: 1.62)", "shape": "dot", "size": 11.620000000000001}, {"color": "#1B9E77", "font": {"color": "black"}, "id": "Author_Unidraulico", "label": "Unidraulico\n(Score: 1.32)", "shape": "dot", "size": 11.32}, {"color": "#1B9E77", "font": {"color": "black"}, "id": "Author_nic0nic", "label": "nic0nic\n(Score: 1.00)", "shape": "dot", "size": 11.0}, {"color": "#1B9E77", "font": {"color": "black"}, "id": "Author_brurino", "label": "brurino\n(Score: 1.58)", "shape": "dot", "size": 11.58}, {"color": "#1B9E77", "font": {"color": "black"}, "id": "Author_flexgap", "label": "flexgap\n(Score: 1.01)", "shape": "dot", "size": 11.01}, {"color": "#1B9E77", "font": {"color": "black"}, "id": "Author_Playrom", "label": "Playrom\n(Score: 1.05)", "shape": "dot", "size": 11.05}, {"color": "#1B9E77", "font": {"color": "black"}, "id": "Author_zakk", "label": "zakk\n(Score: 1.30)", "shape": "dot", "size": 11.3}, {"color": "#1B9E77", "font": {"color": "black"}, "id": "Author_lucretiusT", "label": "lucretiusT\n(Score: 1.02)", "shape": "dot", "size": 11.02}, {"color": "#1B9E77", "font": {"color": "black"}, "id": "Author_Jaja1990", "label": "Jaja1990\n(Score: 1.00)", "shape": "dot", "size": 11.0}, {"color": "#1B9E77", "font": {"color": "black"}, "id": "Author_HarveySpecter92", "label": "HarveySpecter92\n(Score: 1.00)", "shape": "dot", "size": 11.0}, {"color": "#1B9E77", "font": {"color": "black"}, "id": "Author_LeartS", "label": "LeartS\n(Score: 1.00)", "shape": "dot", "size": 11.0}, {"color": "#1B9E77", "font": {"color": "black"}, "id": "Author_SpiegoLeDiscussioni", "label": "SpiegoLeDiscussioni\n(Score: 1.01)", "shape": "dot", "size": 11.01}, {"color": "#1B9E77", "font": {"color": "black"}, "id": "Author_uno_a_caso", "label": "uno_a_caso\n(Score: 1.03)", "shape": "dot", "size": 11.03}, {"color": "#1B9E77", "font": {"color": "black"}, "id": "Author_Metecury", "label": "Metecury\n(Score: 1.03)", "shape": "dot", "size": 11.03}, {"color": "#1B9E77", "font": {"color": "black"}, "id": "Author_pokerissimo", "label": "pokerissimo\n(Score: 1.59)", "shape": "dot", "size": 11.59}, {"color": "#1B9E77", "font": {"color": "black"}, "id": "Author_italianjob17", "label": "italianjob17\n(Score: 1.92)", "shape": "dot", "size": 11.92}, {"color": "#1B9E77", "font": {"color": "black"}, "id": "Author_ponchietto", "label": "ponchietto\n(Score: 1.00)", "shape": "dot", "size": 11.0}, {"color": "#1B9E77", "font": {"color": "black"}, "id": "Author_tekanet", "label": "tekanet\n(Score: 1.02)", "shape": "dot", "size": 11.02}, {"color": "#1B9E77", "font": {"color": "black"}, "id": "Author_zykzakk", "label": "zykzakk\n(Score: 0.73)", "shape": "dot", "size": 10.73}, {"color": "#1B9E77", "font": {"color": "black"}, "id": "Author_Louis-o-jelly", "label": "Louis-o-jelly\n(Score: 1.30)", "shape": "dot", "size": 11.3}, {"color": "#1B9E77", "font": {"color": "black"}, "id": "Author_xorgol", "label": "xorgol\n(Score: 1.29)", "shape": "dot", "size": 11.29}, {"color": "#1B9E77", "font": {"color": "black"}, "id": "Author_panicClark", "label": "panicClark\n(Score: 1.32)", "shape": "dot", "size": 11.32}, {"color": "#1B9E77", "font": {"color": "black"}, "id": "Author_demfrecklestho", "label": "demfrecklestho\n(Score: 2.49)", "shape": "dot", "size": 12.49}, {"color": "#1B9E77", "font": {"color": "black"}, "id": "Author_McNorch", "label": "McNorch\n(Score: 1.02)", "shape": "dot", "size": 11.02}, {"color": "#1B9E77", "font": {"color": "black"}, "id": "Author_bilog78", "label": "bilog78\n(Score: 2.53)", "shape": "dot", "size": 12.53}, {"color": "#1B9E77", "font": {"color": "black"}, "id": "Author_ClassicGigius", "label": "ClassicGigius\n(Score: 1.92)", "shape": "dot", "size": 11.92}, {"color": "#1B9E77", "font": {"color": "black"}, "id": "Author_giganterossa", "label": "giganterossa\n(Score: 0.99)", "shape": "dot", "size": 10.99}, {"color": "#1B9E77", "font": {"color": "black"}, "id": "Author_PdoesnotequalNP", "label": "PdoesnotequalNP\n(Score: 1.28)", "shape": "dot", "size": 11.28}, {"color": "#1B9E77", "font": {"color": "black"}, "id": "Author_il_bardo", "label": "il_bardo\n(Score: 0.78)", "shape": "dot", "size": 10.78}, {"color": "#1B9E77", "font": {"color": "black"}, "id": "Author_lou1306", "label": "lou1306\n(Score: 0.77)", "shape": "dot", "size": 10.77}, {"color": "#1B9E77", "font": {"color": "black"}, "id": "Author_kurlash", "label": "kurlash\n(Score: 0.76)", "shape": "dot", "size": 10.76}, {"color": "#1B9E77", "font": {"color": "black"}, "id": "Author_Mentioned_Videos", "label": "Mentioned_Videos\n(Score: 0.95)", "shape": "dot", "size": 10.95}, {"color": "#1B9E77", "font": {"color": "black"}, "id": "Author_L_Blisset", "label": "L_Blisset\n(Score: 0.76)", "shape": "dot", "size": 10.76}, {"color": "#c6c2f6", "font": {"color": "black", "size": 20, "strokeColor": "white", "strokeWidth": 2}, "id": "Topic_2", "label": "Topic 3\nspesso:0.01, paziente:0.01, testicolo:0.01, fertilit:0.01, tumore:0.01, anno:0.01, visita:0.01, varicocele:0.01, vengono:0.01, destra:0.01", "shape": "box", "size": 10}, {"color": "#c6c2f6", "font": {"color": "black", "size": 20, "strokeColor": "white", "strokeWidth": 2}, "id": "Topic_3", "label": "Topic 4\nmilitari:0.01, moglie:0.01, colpo_stato:0.01, figli:0.01, costituzione:0.01, rischio:0.01, sesso:0.01, germania:0.01, sky:0.01, domani:0.01", "shape": "box", "size": 10}, {"color": "#1B9E77", "font": {"color": "black"}, "id": "Author_gezar", "label": "gezar\n(Score: 2.82)", "shape": "dot", "size": 12.82}, {"color": "#1B9E77", "font": {"color": "black"}, "id": "Author_JLS88", "label": "JLS88\n(Score: 2.61)", "shape": "dot", "size": 12.61}, {"color": "#1B9E77", "font": {"color": "black"}, "id": "Author_Rinasciment", "label": "Rinasciment\n(Score: 1.30)", "shape": "dot", "size": 11.3}, {"color": "#1B9E77", "font": {"color": "black"}, "id": "Author_Mechanicalmind", "label": "Mechanicalmind\n(Score: 2.19)", "shape": "dot", "size": 12.19}, {"color": "#1B9E77", "font": {"color": "black"}, "id": "Author_oldpoint", "label": "oldpoint\n(Score: 1.91)", "shape": "dot", "size": 11.91}, {"color": "#1B9E77", "font": {"color": "black"}, "id": "Author_degoban", "label": "degoban\n(Score: 1.89)", "shape": "dot", "size": 11.89}, {"color": "#1B9E77", "font": {"color": "black"}, "id": "Author_MrKnot", "label": "MrKnot\n(Score: 0.73)", "shape": "dot", "size": 10.73}, {"color": "#1B9E77", "font": {"color": "black"}, "id": "Author_Mick94", "label": "Mick94\n(Score: 1.63)", "shape": "dot", "size": 11.629999999999999}, {"color": "#1B9E77", "font": {"color": "black"}, "id": "Author_improb", "label": "improb\n(Score: 1.88)", "shape": "dot", "size": 11.879999999999999}, {"color": "#1B9E77", "font": {"color": "black"}, "id": "Author_Ludoboii", "label": "Ludoboii\n(Score: 1.01)", "shape": "dot", "size": 11.01}, {"color": "#1B9E77", "font": {"color": "black"}, "id": "Author_robespierring", "label": "robespierring\n(Score: 1.63)", "shape": "dot", "size": 11.629999999999999}, {"color": "#1B9E77", "font": {"color": "black"}, "id": "Author_simoneb_", "label": "simoneb_\n(Score: 1.59)", "shape": "dot", "size": 11.59}, {"color": "#1B9E77", "font": {"color": "black"}, "id": "Author_Fahrad94", "label": "Fahrad94\n(Score: 1.59)", "shape": "dot", "size": 11.59}, {"color": "#1B9E77", "font": {"color": "black"}, "id": "Author_Arciere91", "label": "Arciere91\n(Score: 2.23)", "shape": "dot", "size": 12.23}, {"color": "#1B9E77", "font": {"color": "black"}, "id": "Author_lucav92", "label": "lucav92\n(Score: 1.35)", "shape": "dot", "size": 11.35}, {"color": "#1B9E77", "font": {"color": "black"}, "id": "Author_Bladesleeper", "label": "Bladesleeper\n(Score: 1.33)", "shape": "dot", "size": 11.33}, {"color": "#1B9E77", "font": {"color": "black"}, "id": "Author_twentyfumble", "label": "twentyfumble\n(Score: 1.32)", "shape": "dot", "size": 11.32}, {"color": "#1B9E77", "font": {"color": "black"}, "id": "Author_segolas", "label": "segolas\n(Score: 1.61)", "shape": "dot", "size": 11.61}, {"color": "#1B9E77", "font": {"color": "black"}, "id": "Author_eover", "label": "eover\n(Score: 1.30)", "shape": "dot", "size": 11.3}, {"color": "#1B9E77", "font": {"color": "black"}, "id": "Author_MyPendrive", "label": "MyPendrive\n(Score: 1.30)", "shape": "dot", "size": 11.3}, {"color": "#1B9E77", "font": {"color": "black"}, "id": "Author_fenechfan", "label": "fenechfan\n(Score: 1.29)", "shape": "dot", "size": 11.29}, {"color": "#1B9E77", "font": {"color": "black"}, "id": "Author_osidovich", "label": "osidovich\n(Score: 1.94)", "shape": "dot", "size": 11.94}, {"color": "#1B9E77", "font": {"color": "black"}, "id": "Author_Jack_Beauregard", "label": "Jack_Beauregard\n(Score: 1.33)", "shape": "dot", "size": 11.33}, {"color": "#1B9E77", "font": {"color": "black"}, "id": "Author_learninghunger", "label": "learninghunger\n(Score: 1.32)", "shape": "dot", "size": 11.32}, {"color": "#1B9E77", "font": {"color": "black"}, "id": "Author_Chobeat", "label": "Chobeat\n(Score: 1.31)", "shape": "dot", "size": 11.31}, {"color": "#1B9E77", "font": {"color": "black"}, "id": "Author__Aladino_", "label": "_Aladino_\n(Score: 1.09)", "shape": "dot", "size": 11.09}, {"color": "#1B9E77", "font": {"color": "black"}, "id": "Author_JustJohnItalia", "label": "JustJohnItalia\n(Score: 1.05)", "shape": "dot", "size": 11.05}, {"color": "#1B9E77", "font": {"color": "black"}, "id": "Author_MisterVaridoianis", "label": "MisterVaridoianis\n(Score: 1.02)", "shape": "dot", "size": 11.02}, {"color": "#1B9E77", "font": {"color": "black"}, "id": "Author_ZugNachPankow", "label": "ZugNachPankow\n(Score: 0.76)", "shape": "dot", "size": 10.76}, {"color": "#1B9E77", "font": {"color": "black"}, "id": "Author_unpoditutto", "label": "unpoditutto\n(Score: 0.76)", "shape": "dot", "size": 10.76}, {"color": "#1B9E77", "font": {"color": "black"}, "id": "Author_Nemega87", "label": "Nemega87\n(Score: 0.74)", "shape": "dot", "size": 10.74}, {"color": "#1B9E77", "font": {"color": "black"}, "id": "Author_alnex", "label": "alnex\n(Score: 0.74)", "shape": "dot", "size": 10.74}, {"color": "#1B9E77", "font": {"color": "black"}, "id": "Author_marcix", "label": "marcix\n(Score: 0.74)", "shape": "dot", "size": 10.74}]);
+                  edges = new vis.DataSet([{"from": "Topic_1", "to": "Author_mirh", "width": 16.01476526260376}, {"from": "Topic_1", "to": "Author_LanciaStratos93", "width": 12.12055104970932}, {"from": "Topic_1", "to": "Author_Mishulo", "width": 12.116299951076506}, {"from": "Topic_1", "to": "Author_Kit_Emmuorto", "width": 11.537311267852782}, {"from": "Topic_1", "to": "Author_Emanuele676", "width": 8.216576373577118}, {"from": "Topic_1", "to": "Author_bonzinip", "width": 4.327298557758331}, {"from": "Topic_1", "to": "Author_ChiaraFoglietta", "width": 4.029175174236298}, {"from": "Topic_1", "to": "Author_stefantalpalaru", "width": 3.4217867255210876}, {"from": "Topic_1", "to": "Author_lestrigone", "width": 2.8291853308677672}, {"from": "Topic_1", "to": "Author_sempiternum", "width": 2.5277774930000305}, {"from": "Topic_1", "to": "Author_againstconsole", "width": 2.5263482213020323}, {"from": "Topic_1", "to": "Author_Mgm_it", "width": 2.5143524050712585}, {"from": "Topic_1", "to": "Author_ananasso_satanasso", "width": 2.2387057304382325}, {"from": "Topic_1", "to": "Author_pasternacco", "width": 2.2293523907661434}, {"from": "Topic_1", "to": "Author_Ste29ebasta", "width": 2.2151782155036925}, {"from": "Topic_1", "to": "Author_babilone", "width": 2.1780216336250304}, {"from": "Topic_1", "to": "Author_tartare4562", "width": 1.9283762335777284}, {"from": "Topic_1", "to": "Author_liaisons_dangereuses", "width": 1.9215385794639586}, {"from": "Topic_1", "to": "Author_A_Nest_Of_Nope", "width": 1.905798268318176}, {"from": "Topic_1", "to": "Author_elphieLil84", "width": 1.905727708339691}, {"from": "Topic_1", "to": "Author_OriginalCoso", "width": 1.890757793188095}, {"from": "Topic_1", "to": "Author_MrAlagos", "width": 1.6333635687828063}, {"from": "Topic_1", "to": "Author_-yenn-", "width": 1.6218658447265626}, {"from": "Topic_1", "to": "Author_Arcadess", "width": 1.6190460205078123}, {"from": "Topic_1", "to": "Author__samux_", "width": 1.6165857434272766}, {"from": "Topic_1", "to": "Author_giaq", "width": 1.6146775245666505}, {"from": "Topic_1", "to": "Author_xeptt", "width": 1.6103872895240783}, {"from": "Topic_1", "to": "Author_switchhh", "width": 1.6062115192413329}, {"from": "Topic_1", "to": "Author_Antorugby", "width": 1.593026912212372}, {"from": "Topic_1", "to": "Author_Trouauey", "width": 1.357815146446228}, {"from": "Topic_1", "to": "Author_gautedasuta", "width": 1.3412317514419554}, {"from": "Topic_1", "to": "Author_Valluan", "width": 1.3332908511161803}, {"from": "Topic_1", "to": "Author_martinomh", "width": 1.328148090839386}, {"from": "Topic_1", "to": "Author_Bromao", "width": 1.3249598860740661}, {"from": "Topic_1", "to": "Author_EmanueleAina", "width": 1.3245142459869386}, {"from": "Topic_1", "to": "Author_Unidraulico", "width": 1.315974187850952}, {"from": "Topic_1", "to": "Author_nic0nic", "width": 1.3127344489097594}, {"from": "Topic_1", "to": "Author_brurino", "width": 1.0555893540382384}, {"from": "Topic_1", "to": "Author_flexgap", "width": 1.0536961078643798}, {"from": "Topic_1", "to": "Author_Playrom", "width": 1.05143700838089}, {"from": "Topic_1", "to": "Author_zakk", "width": 1.0423299670219421}, {"from": "Topic_1", "to": "Author_lucretiusT", "width": 1.0381740093231202}, {"from": "Topic_1", "to": "Author_Jaja1990", "width": 1.0369480848312378}, {"from": "Topic_1", "to": "Author_HarveySpecter92", "width": 1.03296080827713}, {"from": "Topic_1", "to": "Author_LeartS", "width": 1.0324414253234864}, {"from": "Topic_1", "to": "Author_SpiegoLeDiscussioni", "width": 1.0301562666893005}, {"from": "Topic_1", "to": "Author_uno_a_caso", "width": 1.029044759273529}, {"from": "Topic_1", "to": "Author_Metecury", "width": 1.0290393710136412}, {"from": "Topic_1", "to": "Author_pokerissimo", "width": 1.0279127597808837}, {"from": "Topic_1", "to": "Author_italianjob17", "width": 1.0272979855537414}, {"from": "Topic_1", "to": "Author_ponchietto", "width": 1.0251976370811462}, {"from": "Topic_1", "to": "Author_tekanet", "width": 1.0221785664558412}, {"from": "Topic_1", "to": "Author_zykzakk", "width": 1.0211499094963075}, {"from": "Topic_1", "to": "Author_Louis-o-jelly", "width": 1.020765471458435}, {"from": "Topic_1", "to": "Author_xorgol", "width": 1.0183145403862}, {"from": "Topic_1", "to": "Author_panicClark", "width": 1.015394365787506}, {"from": "Topic_1", "to": "Author_demfrecklestho", "width": 1.0143431544303894}, {"from": "Topic_1", "to": "Author_McNorch", "width": 1.009129774570465}, {"from": "Topic_1", "to": "Author_bilog78", "width": 1.0090559720993042}, {"from": "Topic_1", "to": "Author_ClassicGigius", "width": 1.0078060626983643}, {"from": "Topic_1", "to": "Author_giganterossa", "width": 0.9934982180595398}, {"from": "Topic_1", "to": "Author_PdoesnotequalNP", "width": 0.9886944890022277}, {"from": "Topic_1", "to": "Author_il_bardo", "width": 0.7766169428825378}, {"from": "Topic_1", "to": "Author_lou1306", "width": 0.7682860612869262}, {"from": "Topic_1", "to": "Author_kurlash", "width": 0.7613118648529053}, {"from": "Topic_1", "to": "Author_Mentioned_Videos", "width": 0.7595916032791138}, {"from": "Topic_1", "to": "Author_L_Blisset", "width": 0.7561161875724792}, {"from": "Author_mirh", "to": "Topic_2", "width": 16.29724863767624}, {"from": "Author_mirh", "to": "Topic_3", "width": 10.612385642528533}, {"from": "Author_LanciaStratos93", "to": "Topic_2", "width": 12.396885210275649}, {"from": "Author_LanciaStratos93", "to": "Topic_3", "width": 10.015776884555816}, {"from": "Author_Mishulo", "to": "Topic_2", "width": 26.215017092227935}, {"from": "Author_Mishulo", "to": "Topic_3", "width": 10.604541432857513}, {"from": "Author_Kit_Emmuorto", "to": "Topic_2", "width": 17.19733210206032}, {"from": "Author_Kit_Emmuorto", "to": "Topic_3", "width": 9.404035592079161}, {"from": "Author_Emanuele676", "to": "Topic_2", "width": 13.900915932655334}, {"from": "Author_Emanuele676", "to": "Topic_3", "width": 6.411586856842041}, {"from": "Author_bonzinip", "to": "Topic_2", "width": 6.994728988409042}, {"from": "Author_bonzinip", "to": "Topic_3", "width": 3.4037927746772763}, {"from": "Author_ChiaraFoglietta", "to": "Topic_2", "width": 3.6924166858196257}, {"from": "Author_ChiaraFoglietta", "to": "Topic_3", "width": 2.829677653312683}, {"from": "Author_stefantalpalaru", "to": "Topic_2", "width": 5.786938714981079}, {"from": "Author_stefantalpalaru", "to": "Topic_3", "width": 3.11237758398056}, {"from": "Author_lestrigone", "to": "Topic_2", "width": 2.7958475589752196}, {"from": "Author_lestrigone", "to": "Topic_3", "width": 1.3105220437049865}, {"from": "Author_sempiternum", "to": "Topic_2", "width": 2.7996289908885954}, {"from": "Author_sempiternum", "to": "Topic_3", "width": 1.6082766771316526}, {"from": "Author_againstconsole", "to": "Topic_2", "width": 2.1978771567344664}, {"from": "Author_againstconsole", "to": "Topic_3", "width": 1.9044374942779538}, {"from": "Author_Mgm_it", "to": "Topic_2", "width": 3.098326635360718}, {"from": "Author_Mgm_it", "to": "Topic_3", "width": 1.9225392580032348}, {"from": "Author_ananasso_satanasso", "to": "Topic_2", "width": 3.687431919574738}, {"from": "Author_ananasso_satanasso", "to": "Topic_3", "width": 2.5042921423912046}, {"from": "Author_pasternacco", "to": "Topic_2", "width": 2.493891096115112}, {"from": "Author_pasternacco", "to": "Topic_3", "width": 1.605191206932068}, {"from": "Author_Ste29ebasta", "to": "Topic_2", "width": 2.8039730906486513}, {"from": "Author_Ste29ebasta", "to": "Topic_3", "width": 4.32774715423584}, {"from": "Author_babilone", "to": "Topic_2", "width": 2.1791538894176483}, {"from": "Author_babilone", "to": "Topic_3", "width": 1.2642606735229491}, {"from": "Author_tartare4562", "to": "Topic_2", "width": 1.905946469306946}, {"from": "Author_liaisons_dangereuses", "to": "Topic_2", "width": 2.1919424057006833}, {"from": "Author_liaisons_dangereuses", "to": "Topic_3", "width": 2.2311212778091427}, {"from": "Author_A_Nest_Of_Nope", "to": "Topic_2", "width": 2.7974068880081173}, {"from": "Author_A_Nest_Of_Nope", "to": "Topic_3", "width": 1.9060572981834412}, {"from": "Author_elphieLil84", "to": "Topic_2", "width": 5.190320473909378}, {"from": "Author_elphieLil84", "to": "Topic_3", "width": 1.319773006439209}, {"from": "Author_OriginalCoso", "to": "Topic_2", "width": 2.811896824836731}, {"from": "Author_OriginalCoso", "to": "Topic_3", "width": 2.212320566177368}, {"from": "Author_MrAlagos", "to": "Topic_3", "width": 1.0102478623390199}, {"from": "Author_-yenn-", "to": "Topic_2", "width": 1.5855118334293365}, {"from": "Author_-yenn-", "to": "Topic_3", "width": 1.9355384945869445}, {"from": "Author_Arcadess", "to": "Topic_2", "width": 1.6125033259391786}, {"from": "Author_Arcadess", "to": "Topic_3", "width": 1.0066434621810911}, {"from": "Author__samux_", "to": "Topic_2", "width": 1.8846675932407377}, {"from": "Author__samux_", "to": "Topic_3", "width": 1.3223956942558288}, {"from": "Author_xeptt", "to": "Topic_2", "width": 1.8987362325191497}, {"from": "Author_xeptt", "to": "Topic_3", "width": 1.3290026545524596}, {"from": "Author_switchhh", "to": "Topic_2", "width": 2.813084292411804}, {"from": "Author_Antorugby", "to": "Topic_2", "width": 1.6197139859199523}, {"from": "Author_Trouauey", "to": "Topic_2", "width": 3.3929516732692715}, {"from": "Author_Trouauey", "to": "Topic_3", "width": 0.9874213457107544}, {"from": "Author_gautedasuta", "to": "Topic_3", "width": 1.6200933456420898}, {"from": "Author_Valluan", "to": "Topic_2", "width": 1.6259108185768127}, {"from": "Author_Valluan", "to": "Topic_3", "width": 0.9905373632907867}, {"from": "Author_martinomh", "to": "Topic_2", "width": 2.7818037927150727}, {"from": "Author_martinomh", "to": "Topic_3", "width": 1.9257906079292297}, {"from": "Author_Bromao", "to": "Topic_2", "width": 1.5994588434696198}, {"from": "Author_Bromao", "to": "Topic_3", "width": 1.3127683162689208}, {"from": "Author_EmanueleAina", "to": "Topic_2", "width": 1.8867819786071776}, {"from": "Author_EmanueleAina", "to": "Topic_3", "width": 1.6181896090507506}, {"from": "Author_nic0nic", "to": "Topic_3", "width": 1.0048143029212953}, {"from": "Author_brurino", "to": "Topic_2", "width": 1.2960182845592498}, {"from": "Author_brurino", "to": "Topic_3", "width": 1.5811013996601102}, {"from": "Author_flexgap", "to": "Topic_2", "width": 1.8794213235378265}, {"from": "Author_flexgap", "to": "Topic_3", "width": 1.0063280940055848}, {"from": "Author_zakk", "to": "Topic_2", "width": 1.3006945729255674}, {"from": "Author_lucretiusT", "to": "Topic_3", "width": 1.0213135480880737}, {"from": "Author_Jaja1990", "to": "Topic_2", "width": 1.604709458351135}, {"from": "Author_Jaja1990", "to": "Topic_3", "width": 1.0023178577423095}, {"from": "Author_HarveySpecter92", "to": "Topic_3", "width": 1.0036462426185606}, {"from": "Author_LeartS", "to": "Topic_2", "width": 1.5877211391925812}, {"from": "Author_LeartS", "to": "Topic_3", "width": 0.9985596656799316}, {"from": "Author_SpiegoLeDiscussioni", "to": "Topic_2", "width": 2.195464652776718}, {"from": "Author_SpiegoLeDiscussioni", "to": "Topic_3", "width": 1.0083622932434082}, {"from": "Author_pokerissimo", "to": "Topic_2", "width": 1.5907904207706451}, {"from": "Author_italianjob17", "to": "Topic_2", "width": 2.7858835637569426}, {"from": "Author_italianjob17", "to": "Topic_3", "width": 1.924937081336975}, {"from": "Author_ponchietto", "to": "Topic_3", "width": 0.9984444320201873}, {"from": "Author_zykzakk", "to": "Topic_3", "width": 0.729590916633606}, {"from": "Author_Louis-o-jelly", "to": "Topic_2", "width": 1.298411875963211}, {"from": "Author_xorgol", "to": "Topic_2", "width": 1.2940133154392242}, {"from": "Author_panicClark", "to": "Topic_2", "width": 1.6029255747795106}, {"from": "Author_panicClark", "to": "Topic_3", "width": 1.3237975716590882}, {"from": "Author_demfrecklestho", "to": "Topic_2", "width": 2.4919610917568207}, {"from": "Author_McNorch", "to": "Topic_3", "width": 1.0173747301101685}, {"from": "Author_bilog78", "to": "Topic_3", "width": 2.534546661376953}, {"from": "Author_ClassicGigius", "to": "Topic_2", "width": 2.486144787073135}, {"from": "Author_ClassicGigius", "to": "Topic_3", "width": 1.9231895923614502}, {"from": "Author_PdoesnotequalNP", "to": "Topic_2", "width": 1.6233245491981507}, {"from": "Author_PdoesnotequalNP", "to": "Topic_3", "width": 1.2810613453388213}, {"from": "Author_Mentioned_Videos", "to": "Topic_3", "width": 0.9522083103656769}, {"from": "Topic_2", "to": "Author_gezar", "width": 2.816181433200836}, {"from": "Topic_2", "to": "Author_JLS88", "width": 2.6103588342666626}, {"from": "Topic_2", "to": "Author_Rinasciment", "width": 2.198947066068649}, {"from": "Topic_2", "to": "Author_Mechanicalmind", "width": 2.186706453561783}, {"from": "Topic_2", "to": "Author_oldpoint", "width": 1.9123122334480285}, {"from": "Topic_2", "to": "Author_degoban", "width": 1.8916964173316955}, {"from": "Topic_2", "to": "Author_MrKnot", "width": 1.8904459178447723}, {"from": "Topic_2", "to": "Author_Mick94", "width": 1.8836810052394868}, {"from": "Topic_2", "to": "Author_improb", "width": 1.8835005402565002}, {"from": "Topic_2", "to": "Author_Ludoboii", "width": 1.6084491372108458}, {"from": "Topic_2", "to": "Author_robespierring", "width": 1.6080553650856018}, {"from": "Topic_2", "to": "Author_simoneb_", "width": 1.5937309145927427}, {"from": "Topic_2", "to": "Author_Fahrad94", "width": 1.5924135148525238}, {"from": "Topic_2", "to": "Author_Arciere91", "width": 1.5808130860328675}, {"from": "Topic_2", "to": "Author_lucav92", "width": 1.346535539627075}, {"from": "Topic_2", "to": "Author_Bladesleeper", "width": 1.3270395278930662}, {"from": "Topic_2", "to": "Author_twentyfumble", "width": 1.316098165512085}, {"from": "Topic_2", "to": "Author_segolas", "width": 1.3008760452270507}, {"from": "Topic_2", "to": "Author_eover", "width": 1.2997438609600067}, {"from": "Topic_2", "to": "Author_MyPendrive", "width": 1.2954498589038848}, {"from": "Topic_2", "to": "Author_fenechfan", "width": 1.2937761068344116}, {"from": "Author_Rinasciment", "to": "Topic_3", "width": 1.29585223197937}, {"from": "Author_MrKnot", "to": "Topic_3", "width": 0.7340817332267762}, {"from": "Author_Mick94", "to": "Topic_3", "width": 1.6252074360847473}, {"from": "Author_Ludoboii", "to": "Topic_3", "width": 1.0109769582748414}, {"from": "Author_robespierring", "to": "Topic_3", "width": 1.6297314047813414}, {"from": "Author_Arciere91", "to": "Topic_3", "width": 2.229576086997986}, {"from": "Author_segolas", "to": "Topic_3", "width": 1.6057203292846678}, {"from": "Topic_3", "to": "Author_osidovich", "width": 1.944737982749939}, {"from": "Topic_3", "to": "Author_Jack_Beauregard", "width": 1.3324445009231567}, {"from": "Topic_3", "to": "Author_learninghunger", "width": 1.3232634902000426}, {"from": "Topic_3", "to": "Author_Chobeat", "width": 1.3053861260414124}, {"from": "Topic_3", "to": "Author__Aladino_", "width": 1.0868080019950868}, {"from": "Topic_3", "to": "Author_JustJohnItalia", "width": 1.0478729367256163}, {"from": "Topic_3", "to": "Author_MisterVaridoianis", "width": 1.0170968294143676}, {"from": "Topic_3", "to": "Author_ZugNachPankow", "width": 0.760732889175415}, {"from": "Topic_3", "to": "Author_unpoditutto", "width": 0.7591925978660583}, {"from": "Topic_3", "to": "Author_Nemega87", "width": 0.7430440187454224}, {"from": "Topic_3", "to": "Author_alnex", "width": 0.742127513885498}, {"from": "Topic_3", "to": "Author_marcix", "width": 0.7396683692932129}]);
+
+                  nodeColors = {};
+                  allNodes = nodes.get({ returnType: "Object" });
+                  for (nodeId in allNodes) {
+                    nodeColors[nodeId] = allNodes[nodeId].color;
+                  }
+                  allEdges = edges.get({ returnType: "Object" });
+                  // adding nodes and edges to the graph
+                  data = {nodes: nodes, edges: edges};
+
+                  var options = {
+    "configure": {
+        "enabled": true,
+        "filter": [
+            "physics"
+        ]
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": true,
+            "type": "dynamic"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+
+                  
+
+
+                  
+                  // if this network requires displaying the configure window,
+                  // put it in its div
+                  options.configure["container"] = document.getElementById("config");
+                  
+
+                  network = new vis.Network(container, data, options);
+
+                  
+
+                  
+
+                  
+
+
+                  
+                      network.on("stabilizationProgress", function(params) {
+                          document.getElementById('loadingBar').removeAttribute("style");
+                          var maxWidth = 496;
+                          var minWidth = 20;
+                          var widthFactor = params.iterations/params.total;
+                          var width = Math.max(minWidth,maxWidth * widthFactor);
+                          document.getElementById('bar').style.width = width + 'px';
+                          document.getElementById('text').innerHTML = Math.round(widthFactor*100) + '%';
+                      });
+                      network.once("stabilizationIterationsDone", function() {
+                          document.getElementById('text').innerHTML = '100%';
+                          document.getElementById('bar').style.width = '496px';
+                          document.getElementById('loadingBar').style.opacity = 0;
+                          // really clean the dom element
+                          setTimeout(function () {document.getElementById('loadingBar').style.display = 'none';}, 500);
+                      });
+                  
+
+                  return network;
+
+              }
+              drawGraph();
+        </script>
+    </body>
+</html>

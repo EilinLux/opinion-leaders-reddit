@@ -1,0 +1,174 @@
+reddit_regex:
+  - delete
+  - removed
+  - \\breddit\\b
+  - \\br\\/\\w+\\b
+  - \\bupvote\\b
+  - \\bdownvote\\b
+  - \\bkarma\\b
+  - \\bgold\\b
+  - \\bAMA\\b
+  - \\bTIL\\b
+  - \\bELI5\\b
+  - \\bFTFY\\b
+  - \\bIMO\\b
+  - \\bTLDR\\b
+  - \\bOP\\b
+  - \\bcake day\\b
+  - \\bmod\\b
+  - \\bsubreddit\\b
+  - \\bredditors\\b
+  - \\bcrosspost\\b
+
+it:
+  # - \\bvota(?:re|zione|to|zioni)?\\b
+  # - \\belett(?:ore|ori|orale|orali)?\\b
+  # - \\bscrutin(?:io|i)?\\b
+  # - \\b(sondagg|vot)io\\b
+  # - \\bsonda(?:ggi)?\\b
+  # - \\bscheda\\b
+  # - \\bsuffrag(?:io|i)?\\b
+  # - \\ba(?:stension|stenuto|stenuti)?\\b
+  # - \\bcolleg(?:io|i)?\\b
+  # - \\bdistrett(?:o|i)?\\b
+  # - \\bmaggioranz(?:a)?\\b
+  # - \\b(ballottagg|sparegg)io\\b
+  # - \\bprimarie\\b
+  # - \\bcaucus\\b
+  # - \\bdelegat(?:o|i)?\\b
+  # - \\bcandid(?:ato|ati|atura|ature)?\\b
+  # - \\bcampagn(?:a|e)?\\b
+  # - \\b(titolare|uscente)\\b
+  # - \\bsfida(?:nte|nti)?\\b
+  # - \\bprogramm(?:a|i)?\\b
+  # - \\bdibattit(?:o|i)?\\b
+  # - \\bsostegn(?:o|i)?\\b
+  - essere 
+  - molto 
+  - prima 
+  - quindi 
+  - visto 
+  - magari 
+  - cio 
+  - tipo 
+  - senso 
+  - sempre 
+  - comunque 
+  - grazie 
+  - cosa 
+  - bene 
+  - edit 
+  - forse
+
+en:
+  - \\bvote[sd]?s?\\b
+  - \\bvot(ing|er)s?\\b
+  - \\belection[s]?\\b
+  - \\bballot[s]?\\b
+  - \\bpoll(s|ing)?\\b
+  - \\b(su|disen)franchisement\\b
+  - \\bgerrymander(ing)?\\b
+  - \\babstain(?:tion)?\\b
+  - \\belectoral\\b
+  - \\bconstituen(?:cy|cies)\\b
+  - \\bdistrict[s]?\\b
+  - \\b(major|plural)ity\\b
+  - \\brunoff\\b
+  - \\blandslide\\b
+  - \\bprimary\\b
+  - \\bcaucus\\b
+  - \\bdelegate[s]?\\b
+  - \\bnominat(e|ion|ee)s?\\b
+  - \\bcampaign(ing)?\\b
+  - \\bcandidat(e|es)\\b
+  - \\bincumbent[s]?\\b
+  - \\bchallenger[s]?\\b
+  - \\bplatform[s]?\\b
+  - \\bdebate[s]?\\b
+  - \\bendorse[ments]?\\b
+fr:
+  - \\bvot(?:er|e|ant|ants|é|és)?\\b
+  - \\bélect(?:ion|ions|eur|eurs|oral|orale|oraux|orales)?\\b
+  - \\bscrutin\\b
+  - \\bsondage[s]?\\b
+  - \\bbulletin[s]?\\b
+  - \\burn(?:e|es)?\\b
+  - \\bsuffrage\\b
+  - \\babsten(?:tion|ir)?\\b
+  - \\bcirconscription[s]?\\b
+  - \\bmajorit(?:é|és)?\\b
+  - \\bsecond tour\\b
+  - \\bprimair(?:e|es)?\\b
+  - \\bdélégué[s]?\\b
+  - \\bcandidat(?:e|es|ure|ures)?\\b
+  - \\bcampagne[s]?\\b
+  - \\b(sortant|e|s|es)\\b
+  - \\badversaire[s]?\\b
+  - \\bprogramme[s]?\\b
+  - \\bdébat[s]?\\b
+  - \\bsoutien[s]?\\b
+de:
+  - \\bw(ählen|ähler|ahl)?\\b
+  - \\bstimmen(?:abgabe)?\\b
+  - \\bwahl(?:en|berechtigt|gang|recht)?\\b
+  - \\bumfrage[n]?\\b
+  - \\bwahlzettel\\b
+  - \\burn(?:e|en)?\\b
+  - \\bwahlrecht\\b
+  - \\benthaltung\\b
+  - \\bwahlkreis(?:e)?\\b
+  - \\bbezirk(?:e)?\\b
+  - \\bmehrheit\\b
+  - \\bstichwahl\\b
+  - \\bvorwahl\\b
+  - \\b(parteitag|versammlung)\\b
+  - \\bdelegiert(?:er|en)?\\b
+  - \\bkandidat(?:en|in|innen)?\\b
+  - \\bwahlkampf\\b
+  - \\b(amtierend(?:er|e|en)| Amtsinhaber(?:in)?)\\b
+  - \\bherausforder(?:er|in)?\\b
+  - \\bprogramm(?:e)?\\b
+  - \\bwahlkampfdebatte[n]?\\b
+  - \\bunterstützung\\b
+es:
+  - \\bvot(?:ar|o|ación|aciones|ante|antes)?\\b
+  - \\belec(?:ción|ciones|tor|tores|toral|torales)?\\b
+  - \\bescrutinio[s]?\\b
+  - \\bencuesta[s]?\\b
+  - \\bpapeleta[s]?\\b
+  - \\burna[s]?\\b
+  - \\bsufragio[s]?\\b
+  - \\babsten(?:ción|ciones)?\\b
+  - \\bcir(?:cunscripción|cunscripciones)?\\b
+  - \\bmayor(?:ía|ías)?\\b
+  - \\bsegunda vuelta\\b
+  - \\bprimarias\\b
+  - \\bdelegad(?:o|os|a|as)?\\b
+  - \\bcandidat(?:o|os|a|as|ura|uras)?\\b
+  - \\bcampañ(?:a|as)?\\b
+  - \\b(titular|saliente)[s]?\\b
+  - \\badversario[s]?\\b
+  - \\bprograma[s]?\\b
+  - \\bdebate[s]?\\b
+  - \\bapoy(?:o|os)?\\b
+pt:
+  - \\bvot(?:ar|o|ação|ações|ante|antes)?\\b
+  - \\bele(?:ição|ições|itor|itores|itoral|itorais)?\\b
+  - \\bescrutínio[s]?\\b
+  - \\benquete[s]?\\b
+  - \\bcédula[s]?\\b
+  - \\burna[s]?\\b
+  - \\bsufrágio[s]?\\b
+  - \\babsten(?:ção|ções)?\\b
+  - \\bcir(?:cunscrição|cunscrições)?\\b
+  - \\bmaior(?:ia|ias)?\\b
+  - \\bsegundo turno\\b
+  - \\bprimárias\\b
+  - \\bdelegad(?:o|os|a|as)?\\b
+  - \\bcandidat(?:o|os|a|as|ura|uras)?\\b
+  - \\bcampanh(?:a|as)?\\b
+  - \\b(titular|incumbente)[s]?\\b
+  - \\badversári(?:o|os|a|as)?\\b
+  - \\bprograma[s]?\\b
+  - \\bdebate[s]?\\b
+  - \\bapoi(?:o|os)?\\b

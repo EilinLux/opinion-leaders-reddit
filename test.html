@@ -1,0 +1,221 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+            <script src="lib/bindings/utils.js"></script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/dist/vis-network.min.css" integrity="sha512-WgxfT5LWjfszlPHXRmBWHkV2eceiWTOBvrKCNbdgDYTHrT2AeLCGbF4sZlZw3UMN3WtL0tGUoIAKsu8mllg/XA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js" integrity="sha512-LnvoEWDFrqGHlHmDD2101OrLcbsfkrzoSpvtSQtxK3RMnRV0eOkhhBN2dXHKRrUU8p2DGRTk35n4O8nWSVe1mQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            
+                <link href="lib/tom-select/tom-select.css" rel="stylesheet">
+                <script src="lib/tom-select/tom-select.complete.min.js"></script>
+            
+        
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+        <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+          crossorigin="anonymous"
+        />
+        <script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+          crossorigin="anonymous"
+        ></script>
+
+
+        <center>
+          <h1></h1>
+        </center>
+        <style type="text/css">
+
+             #mynetwork {
+                 width: 100%;
+                 height: 750px;
+                 background-color: white;
+                 border: 1px solid lightgray;
+                 position: relative;
+                 float: left;
+             }
+
+             
+
+             
+             #config {
+                 float: left;
+                 width: 400px;
+                 height: 600px;
+             }
+             
+
+             
+        </style>
+    </head>
+
+
+    <body>
+        <div class="card" style="width: 100%">
+            
+                <div id="select-menu" class="card-header">
+                    <div class="row no-gutters">
+                        <div class="col-10 pb-2">
+                            <select
+                            class="form-select"
+                            aria-label="Default select example"
+                            onchange="selectNode([value]);"
+                            id="select-node"
+                            placeholder="Select node..."
+                            >
+                                <option selected>Select a Node by ID</option>
+                                
+                                    <option value="post1">post1</option>
+                                
+                                    <option value="comment1">comment1</option>
+                                
+                                    <option value="comment2">comment2</option>
+                                
+                                    <option value="post2">post2</option>
+                                
+                                    <option value="comment3">comment3</option>
+                                
+                                    <option value="comment4">comment4</option>
+                                
+                                    <option value="comment5">comment5</option>
+                                
+                                    <option value="post3">post3</option>
+                                
+                                    <option value="comment6">comment6</option>
+                                
+                            </select>
+                        </div>
+                        <div class="col-2 pb-2">
+                            <button type="button" class="btn btn-primary btn-block" onclick="neighbourhoodHighlight({nodes: []});">Reset Selection</button>
+                        </div>
+                    </div>
+                </div>
+            
+            
+            <div id="mynetwork" class="card-body"></div>
+        </div>
+
+        
+        
+            <div id="config"></div>
+        
+
+        <script type="text/javascript">
+
+              // initialize global variables.
+              var edges;
+              var nodes;
+              var allNodes;
+              var allEdges;
+              var nodeColors;
+              var originalNodes;
+              var network;
+              var container;
+              var options, data;
+              var filter = {
+                  item : '',
+                  property : '',
+                  value : []
+              };
+
+              
+                  new TomSelect("#select-node",{
+                      create: false,
+                      sortField: {
+                          field: "text",
+                          direction: "asc"
+                      }
+                  });
+              
+
+              
+
+              // This method is responsible for drawing the graph, returns the drawn network
+              function drawGraph() {
+                  var container = document.getElementById('mynetwork');
+
+                  
+
+                  // parsing and collecting nodes and edges from the python
+                  nodes = new vis.DataSet([{"author": "userA", "color": "#1B9E77", "font": {"color": "black"}, "id": "post1", "label": "userA", "sentiment": "positive", "shape": "dot", "size": 37.725887222397816, "title": " Author: userA,    Sentiment: positive", "type": "post", "upvote": 4}, {"author": "userA", "color": "#1B9E77", "font": {"color": "black"}, "id": "comment1", "label": "userA", "sentiment": "positive", "shape": "dot", "size": 10, "type": "comment"}, {"author": "userA", "color": "#ec7215", "font": {"color": "black"}, "id": "comment2", "label": "userA", "sentiment": "negative", "shape": "dot", "size": 10, "type": "comment"}, {"author": "userB", "color": "#ec7215", "font": {"color": "black"}, "id": "post2", "label": "userB", "sentiment": "negative", "shape": "dot", "size": 83.77758908227872, "title": " Author: userB,    Sentiment: negative", "type": "post", "upvote": 40}, {"author": "userA", "color": "#ec7215", "font": {"color": "black"}, "id": "comment3", "label": "userA", "sentiment": "negative", "shape": "dot", "size": 10, "type": "comment"}, {"author": "userA", "color": "#97c2fc", "font": {"color": "black"}, "id": "comment4", "label": "userA", "sentiment": "neutral", "shape": "dot", "size": 10, "type": "comment"}, {"author": "userA", "color": "#1B9E77", "font": {"color": "black"}, "id": "comment5", "label": "userA", "sentiment": "positive", "shape": "dot", "size": 10, "type": "comment"}, {"author": "userA", "color": "#97c2fc", "font": {"color": "black"}, "id": "post3", "label": "userA", "sentiment": "neutral", "shape": "dot", "size": 48.91820298110626, "title": " Author: userA,    Sentiment: neutral", "type": "post", "upvote": 7}, {"author": "userA", "color": "#97c2fc", "font": {"color": "black"}, "id": "comment6", "label": "userA", "sentiment": "neutral", "shape": "dot", "size": 10, "type": "comment"}]);
+                  edges = new vis.DataSet([{"color": "black", "from": "post1", "to": "comment1", "width": 1}, {"color": "black", "from": "post1", "to": "comment2", "width": 1}, {"color": "black", "from": "post2", "to": "comment3", "width": 1}, {"color": "black", "from": "post2", "to": "comment4", "width": 1}, {"color": "black", "from": "post2", "to": "comment5", "width": 1}, {"color": "black", "from": "post3", "to": "comment6", "width": 1}]);
+
+                  nodeColors = {};
+                  allNodes = nodes.get({ returnType: "Object" });
+                  for (nodeId in allNodes) {
+                    nodeColors[nodeId] = allNodes[nodeId].color;
+                  }
+                  allEdges = edges.get({ returnType: "Object" });
+                  // adding nodes and edges to the graph
+                  data = {nodes: nodes, edges: edges};
+
+                  var options = {
+    "configure": {
+        "enabled": true,
+        "filter": [
+            "physics"
+        ]
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": true,
+            "type": "dynamic"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+
+                  
+
+
+                  
+                  // if this network requires displaying the configure window,
+                  // put it in its div
+                  options.configure["container"] = document.getElementById("config");
+                  
+
+                  network = new vis.Network(container, data, options);
+
+                  
+
+                  
+                    network.on("selectNode", neighbourhoodHighlight);
+                  
+
+                  
+
+
+                  
+
+                  return network;
+
+              }
+              drawGraph();
+        </script>
+    </body>
+</html>

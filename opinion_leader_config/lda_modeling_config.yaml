@@ -1,0 +1,44 @@
+('25-05-2014', 'it'):
+
+  train_lda_model:
+    num_topics: 4
+    update_every: 1  
+    chunksize: 100  
+    passes: 10  
+    alpha: 'auto'  
+    per_word_topics: True
+
+  modeller:
+    text_preprocessing_type: "lemmining"
+    no_below: 2
+    no_above: 0.01
+    keep_n: 5000
+    additional_stopwords: ["it", "reddit_regex"]
+    comment_words_in: True 
+  
+  plot_topic_subreddit_graph:
+    num_top_words: 10  # Number of top words to display per topic
+    num_subreddits_limit: 20  # Limit to the top 20 subreddits (optional)
+    # subreddits=['subreddit1', 'subreddit2'],  # Or specify a list of subreddits (optional)
+    
+('25-05-2014', 'en'):
+  train_lda_model:
+    num_topics: 4
+    update_every: 1  
+    chunksize: 100  
+    passes: 10  
+    alpha: 'auto'  
+    per_word_topics: True  
+  modeller:
+    text_preprocessing_type: "lemmining"
+    no_below: 2
+    no_above: 0.01
+    keep_n: 5000
+    additional_stopwords: ["en", "reddit_regex"]
+    comment_words_in: True
+    
+  plot_topic_subreddit_graph:
+    num_top_words: 10  # Number of top words to display per topic
+    num_subreddits_limit: 20  # Limit to the top 20 subreddits (optional)
+    # subreddits=['subreddit1', 'subreddit2'],  # Or specify a list of subreddits (optional)
+    

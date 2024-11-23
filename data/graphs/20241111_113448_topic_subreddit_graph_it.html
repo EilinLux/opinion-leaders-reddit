@@ -1,0 +1,192 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+            <script src="lib/bindings/utils.js"></script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/dist/vis-network.min.css" integrity="sha512-WgxfT5LWjfszlPHXRmBWHkV2eceiWTOBvrKCNbdgDYTHrT2AeLCGbF4sZlZw3UMN3WtL0tGUoIAKsu8mllg/XA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js" integrity="sha512-LnvoEWDFrqGHlHmDD2101OrLcbsfkrzoSpvtSQtxK3RMnRV0eOkhhBN2dXHKRrUU8p2DGRTk35n4O8nWSVe1mQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            
+        
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+        <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+          crossorigin="anonymous"
+        />
+        <script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+          crossorigin="anonymous"
+        ></script>
+
+
+        <center>
+          <h1></h1>
+        </center>
+        <style type="text/css">
+
+             #mynetwork {
+                 width: 100%;
+                 height: 750px;
+                 background-color: white;
+                 border: 1px solid lightgray;
+                 position: relative;
+                 float: left;
+             }
+
+             
+
+             
+             #config {
+                 float: left;
+                 width: 400px;
+                 height: 600px;
+             }
+             
+
+             
+        </style>
+    </head>
+
+
+    <body>
+        <div class="card" style="width: 100%">
+            
+            
+            <div id="mynetwork" class="card-body"></div>
+        </div>
+
+        
+        
+            <div id="config"></div>
+        
+
+        <script type="text/javascript">
+
+              // initialize global variables.
+              var edges;
+              var nodes;
+              var allNodes;
+              var allEdges;
+              var nodeColors;
+              var originalNodes;
+              var network;
+              var container;
+              var options, data;
+              var filter = {
+                  item : '',
+                  property : '',
+                  value : []
+              };
+
+              
+
+              
+
+              // This method is responsible for drawing the graph, returns the drawn network
+              function drawGraph() {
+                  var container = document.getElementById('mynetwork');
+
+                  
+
+                  // parsing and collecting nodes and edges from the python
+                  nodes = new vis.DataSet([{"color": "#1f77b4", "font": {"color": "black"}, "id": "Topic 1", "label": "Topic 1", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "stato", "label": "stato", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "cosa", "label": "cosa", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "erdogan", "label": "erdogan", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "fatto", "label": "fatto", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "co", "label": "co", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "comunque", "label": "comunque", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "essere", "label": "essere", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "anni", "label": "anni", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "prima", "label": "prima", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "esercito", "label": "esercito", "shape": "dot", "size": 10}, {"color": "#8c564b", "font": {"color": "black"}, "id": "europe", "label": "europe", "shape": "box", "size": 10}, {"color": "#c7c7c7", "font": {"color": "black"}, "id": "italy", "label": "italy", "shape": "box", "size": 10}, {"color": "#9edae5", "font": {"color": "black"}, "id": "Italia", "label": "Italia", "shape": "box", "size": 10}, {"color": "#d62728", "font": {"color": "black"}, "id": "Topic 2", "label": "Topic 2", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "fare", "label": "fare", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "dire", "label": "dire", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "militari", "label": "militari", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "visto", "label": "visto", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "the", "label": "the", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "grazie", "label": "grazie", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "tipo", "label": "tipo", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "fertilit", "label": "fertilit", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "cose", "label": "cose", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "nome", "label": "nome", "shape": "dot", "size": 10}, {"color": "#f7b6d2", "font": {"color": "black"}, "id": "Topic 3", "label": "Topic 3", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "molto", "label": "molto", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "edit", "label": "edit", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "bene", "label": "bene", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "golpe", "label": "golpe", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "proprio", "label": "proprio", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "magari", "label": "magari", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "qualche", "label": "qualche", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "problema", "label": "problema", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "cio", "label": "cio", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "senso", "label": "senso", "shape": "dot", "size": 10}, {"color": "#9edae5", "font": {"color": "black"}, "id": "Topic 4", "label": "Topic 4", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "solo", "label": "solo", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "due", "label": "due", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "renzi", "label": "renzi", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "mattarella", "label": "mattarella", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "poi", "label": "poi", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "deleted", "label": "deleted", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "parte", "label": "parte", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "ancora", "label": "ancora", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "altro", "label": "altro", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "quando", "label": "quando", "shape": "dot", "size": 10}]);
+                  edges = new vis.DataSet([{"from": "Topic 1", "to": "stato", "width": 1}, {"from": "Topic 1", "to": "cosa", "width": 1}, {"from": "Topic 1", "to": "erdogan", "width": 1}, {"from": "Topic 1", "to": "fatto", "width": 1}, {"from": "Topic 1", "to": "co", "width": 1}, {"from": "Topic 1", "to": "comunque", "width": 1}, {"from": "Topic 1", "to": "essere", "width": 1}, {"from": "Topic 1", "to": "anni", "width": 1}, {"from": "Topic 1", "to": "prima", "width": 1}, {"from": "Topic 1", "to": "esercito", "width": 1}, {"from": "Topic 1", "to": "europe", "width": 0.2623726725578308}, {"from": "Topic 1", "to": "italy", "width": 24.92347601056099}, {"from": "Topic 1", "to": "Italia", "width": 0.8335642218589783}, {"from": "Topic 2", "to": "fare", "width": 1}, {"from": "Topic 2", "to": "dire", "width": 1}, {"from": "Topic 2", "to": "militari", "width": 1}, {"from": "Topic 2", "to": "visto", "width": 1}, {"from": "Topic 2", "to": "the", "width": 1}, {"from": "Topic 2", "to": "grazie", "width": 1}, {"from": "Topic 2", "to": "tipo", "width": 1}, {"from": "Topic 2", "to": "fertilit", "width": 1}, {"from": "Topic 2", "to": "cose", "width": 1}, {"from": "Topic 2", "to": "nome", "width": 1}, {"from": "Topic 2", "to": "europe", "width": 0.2658095359802246}, {"from": "Topic 2", "to": "italy", "width": 18.870124265551567}, {"from": "Topic 2", "to": "Italia", "width": 0.38779935240745544}, {"from": "Topic 3", "to": "molto", "width": 1}, {"from": "Topic 3", "to": "edit", "width": 1}, {"from": "Topic 3", "to": "bene", "width": 1}, {"from": "Topic 3", "to": "golpe", "width": 1}, {"from": "Topic 3", "to": "proprio", "width": 1}, {"from": "Topic 3", "to": "magari", "width": 1}, {"from": "Topic 3", "to": "qualche", "width": 1}, {"from": "Topic 3", "to": "problema", "width": 1}, {"from": "Topic 3", "to": "cio", "width": 1}, {"from": "Topic 3", "to": "senso", "width": 1}, {"from": "Topic 3", "to": "europe", "width": 0.15219490230083466}, {"from": "Topic 3", "to": "italy", "width": 16.35014173388481}, {"from": "Topic 3", "to": "Italia", "width": 0.33758167922496796}, {"from": "Topic 4", "to": "solo", "width": 1}, {"from": "Topic 4", "to": "due", "width": 1}, {"from": "Topic 4", "to": "renzi", "width": 1}, {"from": "Topic 4", "to": "mattarella", "width": 1}, {"from": "Topic 4", "to": "poi", "width": 1}, {"from": "Topic 4", "to": "deleted", "width": 1}, {"from": "Topic 4", "to": "parte", "width": 1}, {"from": "Topic 4", "to": "ancora", "width": 1}, {"from": "Topic 4", "to": "altro", "width": 1}, {"from": "Topic 4", "to": "quando", "width": 1}, {"from": "Topic 4", "to": "europe", "width": 0.31962287425994873}, {"from": "Topic 4", "to": "italy", "width": 22.85625810921192}, {"from": "Topic 4", "to": "Italia", "width": 0.4410547614097595}]);
+
+                  nodeColors = {};
+                  allNodes = nodes.get({ returnType: "Object" });
+                  for (nodeId in allNodes) {
+                    nodeColors[nodeId] = allNodes[nodeId].color;
+                  }
+                  allEdges = edges.get({ returnType: "Object" });
+                  // adding nodes and edges to the graph
+                  data = {nodes: nodes, edges: edges};
+
+                  var options = {
+    "configure": {
+        "enabled": true,
+        "filter": [
+            "physics"
+        ]
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": true,
+            "type": "dynamic"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "layout": {
+        "hierarchical": {
+            "blockShifting": true,
+            "edgeMinimization": true,
+            "enabled": true,
+            "levelSeparation": 150,
+            "parentCentralization": true,
+            "sortMethod": "hubsize",
+            "treeSpacing": 200
+        },
+        "improvedLayout": true,
+        "randomSeed": 0
+    },
+    "physics": {
+        "enabled": true,
+        "forceAtlas2Based": {
+            "avoidOverlap": 1,
+            "centralGravity": 0.01,
+            "damping": 0.4,
+            "gravitationalConstant": -10,
+            "springConstant": 0.08,
+            "springLength": 200
+        },
+        "solver": "forceAtlas2Based",
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+
+                  
+
+
+                  
+                  // if this network requires displaying the configure window,
+                  // put it in its div
+                  options.configure["container"] = document.getElementById("config");
+                  
+
+                  network = new vis.Network(container, data, options);
+
+                  
+
+                  
+
+                  
+
+
+                  
+
+                  return network;
+
+              }
+              drawGraph();
+        </script>
+    </body>
+</html>

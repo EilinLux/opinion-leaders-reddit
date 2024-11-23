@@ -1,0 +1,287 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+            <script src="lib/bindings/utils.js"></script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/dist/vis-network.min.css" integrity="sha512-WgxfT5LWjfszlPHXRmBWHkV2eceiWTOBvrKCNbdgDYTHrT2AeLCGbF4sZlZw3UMN3WtL0tGUoIAKsu8mllg/XA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js" integrity="sha512-LnvoEWDFrqGHlHmDD2101OrLcbsfkrzoSpvtSQtxK3RMnRV0eOkhhBN2dXHKRrUU8p2DGRTk35n4O8nWSVe1mQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            
+        
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+        <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+          crossorigin="anonymous"
+        />
+        <script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+          crossorigin="anonymous"
+        ></script>
+
+
+        <center>
+          <h1></h1>
+        </center>
+        <style type="text/css">
+
+             #mynetwork {
+                 width: 100%;
+                 height: 750px;
+                 background-color: white;
+                 border: 1px solid lightgray;
+                 position: relative;
+                 float: left;
+             }
+
+             
+             #loadingBar {
+                 position:absolute;
+                 top:0px;
+                 left:0px;
+                 width: 100%;
+                 height: 750px;
+                 background-color:rgba(200,200,200,0.8);
+                 -webkit-transition: all 0.5s ease;
+                 -moz-transition: all 0.5s ease;
+                 -ms-transition: all 0.5s ease;
+                 -o-transition: all 0.5s ease;
+                 transition: all 0.5s ease;
+                 opacity:1;
+             }
+
+             #bar {
+                 position:absolute;
+                 top:0px;
+                 left:0px;
+                 width:20px;
+                 height:20px;
+                 margin:auto auto auto auto;
+                 border-radius:11px;
+                 border:2px solid rgba(30,30,30,0.05);
+                 background: rgb(0, 173, 246); /* Old browsers */
+                 box-shadow: 2px 0px 4px rgba(0,0,0,0.4);
+             }
+
+             #border {
+                 position:absolute;
+                 top:10px;
+                 left:10px;
+                 width:500px;
+                 height:23px;
+                 margin:auto auto auto auto;
+                 box-shadow: 0px 0px 4px rgba(0,0,0,0.2);
+                 border-radius:10px;
+             }
+
+             #text {
+                 position:absolute;
+                 top:8px;
+                 left:530px;
+                 width:30px;
+                 height:50px;
+                 margin:auto auto auto auto;
+                 font-size:22px;
+                 color: #000000;
+             }
+
+             div.outerBorder {
+                 position:relative;
+                 top:400px;
+                 width:600px;
+                 height:44px;
+                 margin:auto auto auto auto;
+                 border:8px solid rgba(0,0,0,0.1);
+                 background: rgb(252,252,252); /* Old browsers */
+                 background: -moz-linear-gradient(top,  rgba(252,252,252,1) 0%, rgba(237,237,237,1) 100%); /* FF3.6+ */
+                 background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(252,252,252,1)), color-stop(100%,rgba(237,237,237,1))); /* Chrome,Safari4+ */
+                 background: -webkit-linear-gradient(top,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* Chrome10+,Safari5.1+ */
+                 background: -o-linear-gradient(top,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* Opera 11.10+ */
+                 background: -ms-linear-gradient(top,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* IE10+ */
+                 background: linear-gradient(to bottom,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* W3C */
+                 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fcfcfc', endColorstr='#ededed',GradientType=0 ); /* IE6-9 */
+                 border-radius:72px;
+                 box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+             }
+             
+
+             
+             #config {
+                 float: left;
+                 width: 400px;
+                 height: 600px;
+             }
+             
+
+             
+        </style>
+    </head>
+
+
+    <body>
+        <div class="card" style="width: 100%">
+            
+            
+            <div id="mynetwork" class="card-body"></div>
+        </div>
+
+        
+            <div id="loadingBar">
+              <div class="outerBorder">
+                <div id="text">0%</div>
+                <div id="border">
+                  <div id="bar"></div>
+                </div>
+              </div>
+            </div>
+        
+        
+            <div id="config"></div>
+        
+
+        <script type="text/javascript">
+
+              // initialize global variables.
+              var edges;
+              var nodes;
+              var allNodes;
+              var allEdges;
+              var nodeColors;
+              var originalNodes;
+              var network;
+              var container;
+              var options, data;
+              var filter = {
+                  item : '',
+                  property : '',
+                  value : []
+              };
+
+              
+
+              
+
+              // This method is responsible for drawing the graph, returns the drawn network
+              function drawGraph() {
+                  var container = document.getElementById('mynetwork');
+
+                  
+
+                  // parsing and collecting nodes and edges from the python
+                  nodes = new vis.DataSet([{"color": "#1f77b4", "font": {"color": "black"}, "id": "Topic 1", "label": "Topic 1", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "co", "label": "co", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "quindi", "label": "quindi", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "esercito", "label": "esercito", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "turchia", "label": "turchia", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "os", "label": "os", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "sempre", "label": "sempre", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "berlusconi", "label": "berlusconi", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "caso", "label": "caso", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "colpo_stato", "label": "colpo_stato", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "quasi", "label": "quasi", "shape": "dot", "size": 10}, {"color": "#8c564b", "font": {"color": "black"}, "id": "europe", "label": "europe", "shape": "box", "size": 10}, {"color": "#c7c7c7", "font": {"color": "black"}, "id": "italy", "label": "italy", "shape": "box", "size": 10}, {"color": "#9edae5", "font": {"color": "black"}, "id": "Italia", "label": "Italia", "shape": "box", "size": 10}, {"color": "#ff7f0e", "font": {"color": "black"}, "id": "Topic 2", "label": "Topic 2", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "fare", "label": "fare", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "fatto", "label": "fatto", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "deleted", "label": "deleted", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "sembra", "label": "sembra", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "visto", "label": "visto", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "avere", "label": "avere", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "tipo", "label": "tipo", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "poco", "label": "poco", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "dice", "label": "dice", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "tanto", "label": "tanto", "shape": "dot", "size": 10}, {"color": "#2ca02c", "font": {"color": "black"}, "id": "Topic 3", "label": "Topic 3", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "mai", "label": "mai", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "ancora", "label": "ancora", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "realt", "label": "realt", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "qui", "label": "qui", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "troppo", "label": "troppo", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "anno", "label": "anno", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "capito", "label": "capito", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "rischi", "label": "rischi", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "dovrebbe", "label": "dovrebbe", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "sapere", "label": "sapere", "shape": "dot", "size": 10}, {"color": "#d62728", "font": {"color": "black"}, "id": "Topic 4", "label": "Topic 4", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "solo", "label": "solo", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "essere", "label": "essere", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "renzi", "label": "renzi", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "parte", "label": "parte", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "credo", "label": "credo", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "quando", "label": "quando", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "poi", "label": "poi", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "spesso", "label": "spesso", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "ogni", "label": "ogni", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "male", "label": "male", "shape": "dot", "size": 10}, {"color": "#9467bd", "font": {"color": "black"}, "id": "Topic 5", "label": "Topic 5", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "anni", "label": "anni", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "comunque", "label": "comunque", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "due", "label": "due", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "molto", "label": "molto", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "mattarella", "label": "mattarella", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "detto", "label": "detto", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "forse", "label": "forse", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "vedere", "label": "vedere", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "almeno", "label": "almeno", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "figli", "label": "figli", "shape": "dot", "size": 10}, {"color": "#c49c94", "font": {"color": "black"}, "id": "Topic 6", "label": "Topic 6", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "qualche", "label": "qualche", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "the", "label": "the", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "cio", "label": "cio", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "senso", "label": "senso", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "paziente", "label": "paziente", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "fertilit", "label": "fertilit", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "nulla", "label": "nulla", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "capire", "label": "capire", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "potere", "label": "potere", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "tumore", "label": "tumore", "shape": "dot", "size": 10}, {"color": "#f7b6d2", "font": {"color": "black"}, "id": "Topic 7", "label": "Topic 7", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "pare", "label": "pare", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "governo", "label": "governo", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "problemi", "label": "problemi", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "testicolo", "label": "testicolo", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "far", "label": "far", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "andare", "label": "andare", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "qualcosa", "label": "qualcosa", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "subito", "label": "subito", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "sinistra", "label": "sinistra", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "piace", "label": "piace", "shape": "dot", "size": 10}, {"color": "#c7c7c7", "font": {"color": "black"}, "id": "Topic 8", "label": "Topic 8", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "cosa", "label": "cosa", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "bene", "label": "bene", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "proprio", "label": "proprio", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "dire", "label": "dire", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "meno", "label": "meno", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "dopo", "label": "dopo", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "problema", "label": "problema", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "gente", "label": "gente", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "meglio", "label": "meglio", "shape": "dot", "size": 10}, {"color": "#dbdb8d", "font": {"color": "black"}, "id": "Topic 9", "label": "Topic 9", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "stato", "label": "stato", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "prima", "label": "prima", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "edit", "label": "edit", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "altro", "label": "altro", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "magari", "label": "magari", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "secondo", "label": "secondo", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "senza", "label": "senza", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "dato", "label": "dato", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "pure", "label": "pure", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "nemmeno", "label": "nemmeno", "shape": "dot", "size": 10}, {"color": "#9edae5", "font": {"color": "black"}, "id": "Topic 10", "label": "Topic 10", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "erdogan", "label": "erdogan", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "golpe", "label": "golpe", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "militari", "label": "militari", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "grazie", "label": "grazie", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "moglie", "label": "moglie", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "nome", "label": "nome", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "sesso", "label": "sesso", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "punto", "label": "punto", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "ataturk", "label": "ataturk", "shape": "dot", "size": 10}, {"color": "gray", "font": {"color": "black"}, "id": "golpisti", "label": "golpisti", "shape": "dot", "size": 10}]);
+                  edges = new vis.DataSet([{"from": "Topic 1", "to": "co", "width": 1}, {"from": "Topic 1", "to": "quindi", "width": 1}, {"from": "Topic 1", "to": "esercito", "width": 1}, {"from": "Topic 1", "to": "turchia", "width": 1}, {"from": "Topic 1", "to": "os", "width": 1}, {"from": "Topic 1", "to": "sempre", "width": 1}, {"from": "Topic 1", "to": "berlusconi", "width": 1}, {"from": "Topic 1", "to": "caso", "width": 1}, {"from": "Topic 1", "to": "colpo_stato", "width": 1}, {"from": "Topic 1", "to": "quasi", "width": 1}, {"from": "Topic 1", "to": "europe", "width": 0.09218550473451614}, {"from": "Topic 1", "to": "italy", "width": 7.676112983375788}, {"from": "Topic 1", "to": "Italia", "width": 0.24401282519102097}, {"from": "Topic 2", "to": "fare", "width": 1}, {"from": "Topic 2", "to": "fatto", "width": 1}, {"from": "Topic 2", "to": "deleted", "width": 1}, {"from": "Topic 2", "to": "sembra", "width": 1}, {"from": "Topic 2", "to": "visto", "width": 1}, {"from": "Topic 2", "to": "avere", "width": 1}, {"from": "Topic 2", "to": "tipo", "width": 1}, {"from": "Topic 2", "to": "poco", "width": 1}, {"from": "Topic 2", "to": "dice", "width": 1}, {"from": "Topic 2", "to": "tanto", "width": 1}, {"from": "Topic 2", "to": "europe", "width": 0.0921909287571907}, {"from": "Topic 2", "to": "italy", "width": 8.71752005442977}, {"from": "Topic 2", "to": "Italia", "width": 0.17538205534219742}, {"from": "Topic 3", "to": "mai", "width": 1}, {"from": "Topic 3", "to": "ancora", "width": 1}, {"from": "Topic 3", "to": "realt", "width": 1}, {"from": "Topic 3", "to": "qui", "width": 1}, {"from": "Topic 3", "to": "troppo", "width": 1}, {"from": "Topic 3", "to": "anno", "width": 1}, {"from": "Topic 3", "to": "capito", "width": 1}, {"from": "Topic 3", "to": "rischi", "width": 1}, {"from": "Topic 3", "to": "dovrebbe", "width": 1}, {"from": "Topic 3", "to": "sapere", "width": 1}, {"from": "Topic 3", "to": "europe", "width": 0.05750628933310509}, {"from": "Topic 3", "to": "italy", "width": 5.689079321920872}, {"from": "Topic 3", "to": "Italia", "width": 0.174514040350914}, {"from": "Topic 4", "to": "solo", "width": 1}, {"from": "Topic 4", "to": "essere", "width": 1}, {"from": "Topic 4", "to": "renzi", "width": 1}, {"from": "Topic 4", "to": "parte", "width": 1}, {"from": "Topic 4", "to": "credo", "width": 1}, {"from": "Topic 4", "to": "quando", "width": 1}, {"from": "Topic 4", "to": "poi", "width": 1}, {"from": "Topic 4", "to": "spesso", "width": 1}, {"from": "Topic 4", "to": "ogni", "width": 1}, {"from": "Topic 4", "to": "male", "width": 1}, {"from": "Topic 4", "to": "europe", "width": 0.125845804810524}, {"from": "Topic 4", "to": "italy", "width": 13.764893412590027}, {"from": "Topic 4", "to": "Italia", "width": 0.33684027194976807}, {"from": "Topic 5", "to": "anni", "width": 1}, {"from": "Topic 5", "to": "comunque", "width": 1}, {"from": "Topic 5", "to": "due", "width": 1}, {"from": "Topic 5", "to": "molto", "width": 1}, {"from": "Topic 5", "to": "mattarella", "width": 1}, {"from": "Topic 5", "to": "detto", "width": 1}, {"from": "Topic 5", "to": "forse", "width": 1}, {"from": "Topic 5", "to": "vedere", "width": 1}, {"from": "Topic 5", "to": "almeno", "width": 1}, {"from": "Topic 5", "to": "figli", "width": 1}, {"from": "Topic 5", "to": "europe", "width": 0.07907143980264664}, {"from": "Topic 5", "to": "italy", "width": 6.838779289275408}, {"from": "Topic 5", "to": "Italia", "width": 0.1504238173365593}, {"from": "Topic 6", "to": "qualche", "width": 1}, {"from": "Topic 6", "to": "the", "width": 1}, {"from": "Topic 6", "to": "cio", "width": 1}, {"from": "Topic 6", "to": "senso", "width": 1}, {"from": "Topic 6", "to": "paziente", "width": 1}, {"from": "Topic 6", "to": "fertilit", "width": 1}, {"from": "Topic 6", "to": "nulla", "width": 1}, {"from": "Topic 6", "to": "capire", "width": 1}, {"from": "Topic 6", "to": "potere", "width": 1}, {"from": "Topic 6", "to": "tumore", "width": 1}, {"from": "Topic 6", "to": "europe", "width": 0.061953287571668625}, {"from": "Topic 6", "to": "italy", "width": 7.43017359636724}, {"from": "Topic 6", "to": "Italia", "width": 0.1539018526673317}, {"from": "Topic 7", "to": "pare", "width": 1}, {"from": "Topic 7", "to": "governo", "width": 1}, {"from": "Topic 7", "to": "problemi", "width": 1}, {"from": "Topic 7", "to": "testicolo", "width": 1}, {"from": "Topic 7", "to": "far", "width": 1}, {"from": "Topic 7", "to": "andare", "width": 1}, {"from": "Topic 7", "to": "qualcosa", "width": 1}, {"from": "Topic 7", "to": "subito", "width": 1}, {"from": "Topic 7", "to": "sinistra", "width": 1}, {"from": "Topic 7", "to": "piace", "width": 1}, {"from": "Topic 7", "to": "europe", "width": 0.0705854743719101}, {"from": "Topic 7", "to": "italy", "width": 6.210475772619247}, {"from": "Topic 7", "to": "Italia", "width": 0.13428032398223877}, {"from": "Topic 8", "to": "cosa", "width": 1}, {"from": "Topic 8", "to": "bene", "width": 1}, {"from": "Topic 8", "to": "proprio", "width": 1}, {"from": "Topic 8", "to": "dire", "width": 1}, {"from": "Topic 8", "to": "meno", "width": 1}, {"from": "Topic 8", "to": "dopo", "width": 1}, {"from": "Topic 8", "to": "poi", "width": 1}, {"from": "Topic 8", "to": "problema", "width": 1}, {"from": "Topic 8", "to": "gente", "width": 1}, {"from": "Topic 8", "to": "meglio", "width": 1}, {"from": "Topic 8", "to": "europe", "width": 0.19279643893241882}, {"from": "Topic 8", "to": "italy", "width": 12.372565526515245}, {"from": "Topic 8", "to": "Italia", "width": 0.29813310503959656}, {"from": "Topic 9", "to": "stato", "width": 1}, {"from": "Topic 9", "to": "prima", "width": 1}, {"from": "Topic 9", "to": "edit", "width": 1}, {"from": "Topic 9", "to": "altro", "width": 1}, {"from": "Topic 9", "to": "magari", "width": 1}, {"from": "Topic 9", "to": "secondo", "width": 1}, {"from": "Topic 9", "to": "senza", "width": 1}, {"from": "Topic 9", "to": "dato", "width": 1}, {"from": "Topic 9", "to": "pure", "width": 1}, {"from": "Topic 9", "to": "nemmeno", "width": 1}, {"from": "Topic 9", "to": "europe", "width": 0.1777982860803604}, {"from": "Topic 9", "to": "italy", "width": 10.062411393970251}, {"from": "Topic 9", "to": "Italia", "width": 0.23726603388786316}, {"from": "Topic 10", "to": "erdogan", "width": 1}, {"from": "Topic 10", "to": "golpe", "width": 1}, {"from": "Topic 10", "to": "militari", "width": 1}, {"from": "Topic 10", "to": "grazie", "width": 1}, {"from": "Topic 10", "to": "moglie", "width": 1}, {"from": "Topic 10", "to": "nome", "width": 1}, {"from": "Topic 10", "to": "sesso", "width": 1}, {"from": "Topic 10", "to": "punto", "width": 1}, {"from": "Topic 10", "to": "ataturk", "width": 1}, {"from": "Topic 10", "to": "golpisti", "width": 1}, {"from": "Topic 10", "to": "europe", "width": 0.05006657913327217}, {"from": "Topic 10", "to": "italy", "width": 4.23237565997988}, {"from": "Topic 10", "to": "Italia", "width": 0.0952456146478653}]);
+
+                  nodeColors = {};
+                  allNodes = nodes.get({ returnType: "Object" });
+                  for (nodeId in allNodes) {
+                    nodeColors[nodeId] = allNodes[nodeId].color;
+                  }
+                  allEdges = edges.get({ returnType: "Object" });
+                  // adding nodes and edges to the graph
+                  data = {nodes: nodes, edges: edges};
+
+                  var options = {
+    "configure": {
+        "enabled": true,
+        "filter": [
+            "physics"
+        ]
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": true,
+            "type": "dynamic"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "layout": {
+        "hierarchical": {
+            "blockShifting": true,
+            "edgeMinimization": true,
+            "enabled": true,
+            "levelSeparation": 150,
+            "parentCentralization": true,
+            "sortMethod": "hubsize",
+            "treeSpacing": 200
+        },
+        "improvedLayout": true,
+        "randomSeed": 0
+    },
+    "physics": {
+        "enabled": true,
+        "forceAtlas2Based": {
+            "avoidOverlap": 1,
+            "centralGravity": 0.01,
+            "damping": 0.4,
+            "gravitationalConstant": -10,
+            "springConstant": 0.08,
+            "springLength": 200
+        },
+        "solver": "forceAtlas2Based",
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+
+                  
+
+
+                  
+                  // if this network requires displaying the configure window,
+                  // put it in its div
+                  options.configure["container"] = document.getElementById("config");
+                  
+
+                  network = new vis.Network(container, data, options);
+
+                  
+
+                  
+
+                  
+
+
+                  
+                      network.on("stabilizationProgress", function(params) {
+                          document.getElementById('loadingBar').removeAttribute("style");
+                          var maxWidth = 496;
+                          var minWidth = 20;
+                          var widthFactor = params.iterations/params.total;
+                          var width = Math.max(minWidth,maxWidth * widthFactor);
+                          document.getElementById('bar').style.width = width + 'px';
+                          document.getElementById('text').innerHTML = Math.round(widthFactor*100) + '%';
+                      });
+                      network.once("stabilizationIterationsDone", function() {
+                          document.getElementById('text').innerHTML = '100%';
+                          document.getElementById('bar').style.width = '496px';
+                          document.getElementById('loadingBar').style.opacity = 0;
+                          // really clean the dom element
+                          setTimeout(function () {document.getElementById('loadingBar').style.display = 'none';}, 500);
+                      });
+                  
+
+                  return network;
+
+              }
+              drawGraph();
+        </script>
+    </body>
+</html>
