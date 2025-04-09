@@ -1,0 +1,78 @@
+reddit:
+  client_id: null
+  client_secret: null
+  user_agent: zelda
+
+search_terms:
+  en:
+    - European election
+    - European elections
+    - EU elections
+    - European Parliamentary elections
+    - European Parliament elections
+    - European Union elections
+    - European Parliament elections 
+    - elections for the European parliament
+    - EU election
+    - European Parliamentary election
+    - European Parliament election
+    - European Union election
+    - European Parliament election 
+    - election for the European parliament
+  it:
+    - elezioni europee
+    - elezioni dell'UE
+    - elezioni europarlamentari
+    - elezioni per l'Europarlamento
+    - elezioni del'Europarlamento
+    - elezioni dell'Unione Europea
+    - elezioni del parlamento Europeo
+    - elezioni per il parlamento Europeo
+    - elezione europea
+    - elezione dell'UE
+    - elezione degli europarlamentari
+    - elezione per l'Europarlamento
+    - elezione del'Europarlamento
+    - elezione dell'Unione Europea
+    - elezione del parlamento Europeo
+    - elezione per il parlamento Europeo
+  de:
+    - Europawahlen
+    - EU-Wahlen
+    - Wahlen zur Europäischen Union
+    - Wahlen zum Europäischen Parlament
+    - Europawahl
+    - EU-Wahl
+    - Wahl zur Europäischen Union
+    - Wahl zum Europäischen Parlament
+  fr:
+    - élections européennes
+    - Élections parlementaires européennes
+    - élections au Parlement européen
+    - Élections de l'Union européenne
+    - élections du Parlement européen
+    - élections pour le Parlement européen
+    - élection européennes
+    - Élection parlementaires européennes
+    - élection au Parlement européen
+    - Élection de l'Union européenne
+    - élection du Parlement européen
+    - élection pour le Parlement européen
+  pt:
+    - eleições dos eurodeputados
+    - eleições da UE
+    - eleições para a União Europeia
+    - eleições para o Parlamento Europeu
+    - eleições do Parlamento Europeu
+    - Eleições europeias
+  es:
+    - Elecciones UE
+    - Elección de eurodiputados
+    - Elección de la Unión Europea
+    - Elección de la UE
+    - Elecciones a la Unión Europea
+    - Elecciones al Parlamento Europeo
+    - Elección del Parlamento Europeo
+    - Elección para el Parlamento Europeo
+    - Elecciones europeas
+    - Elecciones de la UE
